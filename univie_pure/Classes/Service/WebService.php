@@ -19,6 +19,7 @@ use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Univie\UniviePure\Utility\CommonUtilities;
 use Univie\UniviePure\Utility\DotEnv;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 
 /*
@@ -239,7 +240,7 @@ class WebService
     private function performRequest(Uri $uri, string $data, string $responseType): ?string
     {
         try {
-            $request = $this->requestFactory->createRequest('POST', $uri)
+            $request = $this->requestFactory->createRequest('GET', $uri)
                 ->withHeader('api-key', $this->apiKey)
                 ->withHeader('Accept', 'application/' . $responseType)
                 ->withHeader('Content-Type', 'application/xml')

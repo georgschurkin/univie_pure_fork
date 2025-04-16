@@ -321,7 +321,7 @@ class CommonUtilities
     <searchString>"' . $orgName . '"</searchString>
 </organisationalUnitsQuery>';
         $webservice = new WebService;
-        $subUnits = $webservice->getJson('organisational-units', $xml);
+        $subUnits = $webservice->getJson('organizations', $xml);
 
 // Safely verify structure before returning
         if (is_array($subUnits) && isset($subUnits['count'])
@@ -348,7 +348,7 @@ class CommonUtilities
     <fields><field>name.text.value</field></fields>
 </organisationalUnitsQuery>';
         $webservice = new WebService;
-        $orgName = $webservice->getJson('organisational-units', $xml);
+        $orgName = $webservice->getJson('organizations', $xml);
 
         if (is_array($orgName) && ($orgName['count'] ?? 0) === 1) {
             $items = $orgName['items'] ?? [];
