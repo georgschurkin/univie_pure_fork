@@ -7,6 +7,7 @@ use Univie\UniviePure\Service\WebService;
 use Univie\UniviePure\Utility\CommonUtilities;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Univie\UniviePure\Utility\LanguageUtility;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /*
  * This file is part of the "T3LUH FIS" Extension for TYPO3 CMS.
@@ -65,7 +66,7 @@ class Projects extends Endpoints
         //set filter:
         $xml .= $this->getFilterXml($settings['filterProjects']);
 
-        $xml .= "<workflowSteps><workflowStep>validated</workflowStep></workflowSteps>";
+        $xml .= "<projectStatus>FINISHED</projectStatus>";
 
         //either for organisations or for persons, both must not be submitted:
         $xml .= CommonUtilities::getPersonsOrOrganisationsXml($settings);
@@ -76,7 +77,6 @@ class Projects extends Endpoints
         }
 
         $xml .= '</projectsQuery>';
-
 
         $view = $this->webservice->getXml('projects', $xml);
         if (!$view) {

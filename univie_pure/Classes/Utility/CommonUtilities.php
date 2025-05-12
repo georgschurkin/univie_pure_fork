@@ -5,6 +5,7 @@ namespace Univie\UniviePure\Utility;
 use Univie\UniviePure\Service\WebService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /*
  * This file is part of the "T3LUH FIS" Extension for TYPO3 CMS.
@@ -182,7 +183,7 @@ class CommonUtilities
         }
 
         // 2) If not choosing "2", then we do nothing special here
-        if ($chooseSelector !== 2) {
+        if ($chooseSelector != 2) {
             return false;
         }
 
@@ -203,11 +204,10 @@ class CommonUtilities
     <linkingStrategy>string</linkingStrategy>
     <locales><locale>de_DE</locale></locales>
     <fields><field>relatedResearchOutputs.uuid</field></fields>
-    <orderings><ordering>title</ordering></orderings>
-</projectsQuery>';
+    <orderings><ordering>title</ordering></orderings></projectsQuery>';
 
         // 4) Call the webservice
-        $webservice = new WebService;
+        $webservice = GeneralUtility::makeInstance(WebService::class);
         $publications = $webservice->getJson('projects', $xmlProjects);
 
         // 5) Build the final return XML with related research outputs
@@ -321,7 +321,7 @@ class CommonUtilities
     <searchString>"' . $orgName . '"</searchString>
 </organisationalUnitsQuery>';
         $webservice = new WebService;
-        $subUnits = $webservice->getJson('organizations', $xml);
+        $subUnits = $webservice->getJson('organisational-units', $xml);
 
 // Safely verify structure before returning
         if (is_array($subUnits) && isset($subUnits['count'])
@@ -348,7 +348,7 @@ class CommonUtilities
     <fields><field>name.text.value</field></fields>
 </organisationalUnitsQuery>';
         $webservice = new WebService;
-        $orgName = $webservice->getJson('organizations', $xml);
+        $orgName = $webservice->getJson('organisational-units', $xml);
 
         if (is_array($orgName) && ($orgName['count'] ?? 0) === 1) {
             $items = $orgName['items'] ?? [];

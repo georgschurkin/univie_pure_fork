@@ -10,7 +10,6 @@ use Univie\UniviePure\Service\WebService;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /*
  * This file is part of the "T3LUH FIS" Extension for TYPO3 CMS.
@@ -62,7 +61,7 @@ class ClassificationScheme
 
         $organisations = $this->getOrganisationsFromCache($this->locale);
         if ($organisations === null || !$this->isValidOrganisationsData($organisations)) {
-            $organisations = $this->webService->getJson('organizations', $postData);
+            $organisations = $this->webService->getJson('organisational-units', $postData);
 
             if (!$organisations || !isset($organisations['items'])) {
                 $this->addFlashMessage(
@@ -79,7 +78,7 @@ class ClassificationScheme
         if (is_array($organisations) && isset($organisations['items'])) {
             foreach ($organisations['items'] as $org) {
                 $config['items'][] = [
-                    $org['name']['en_GB'],
+                    $org['name']['text']['0']['value'],
                     $org['uuid']
                 ];
             }
@@ -142,9 +141,7 @@ class ClassificationScheme
             <orderings>
             <ordering>title</ordering>
             </orderings>
-            <workflowSteps>
-            <workflowStep>validated</workflowStep>
-            </workflowSteps>
+            <projectStatus>FINISHED</projectStatus>
             </projectsQuery>');
 
         $projects = $this->getProjectsFromCache($this->locale);
@@ -156,8 +153,7 @@ class ClassificationScheme
 
         if (is_array($projects) && isset($projects['items'])) {
             foreach ($projects['items'] as $project) {
-                
-                $title = $project['title']['en_GB'];
+                $title = $project['title']['text'][0]['value'];
                 if (!empty($project['acronym']) && strpos($title, $project['acronym']) === false) {
                     $title = $project['acronym'] . ' - ' . $title;
                 }

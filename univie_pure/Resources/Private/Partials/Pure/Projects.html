@@ -14,9 +14,11 @@
 								<f:link.external uri="{item.link.url}" target="_blank" class="c-link--extern"><strong>{item.link.description.text}</strong></f:link.external>
 							</f:then>
 							<f:else>
-								<f:link.external uri="{item.link.url}" target="_blank" class="c-link--extern">
-									<strong>{item.link.url}</strong>
-								</f:link.external>
+								<f:if condition="{item.link.url}">
+									<f:link.external uri="{item.link.url}" target="_blank" class="c-link--extern">
+										<strong>{item.link.url}</strong>
+									</f:link.external>
+								</f:if>
 							</f:else>
 						</f:if>
 					</span>

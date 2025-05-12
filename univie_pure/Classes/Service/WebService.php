@@ -240,7 +240,7 @@ class WebService
     private function performRequest(Uri $uri, string $data, string $responseType): ?string
     {
         try {
-            $request = $this->requestFactory->createRequest('GET', $uri)
+            $request = $this->requestFactory->createRequest('POST', $uri)
                 ->withHeader('api-key', $this->apiKey)
                 ->withHeader('Accept', 'application/' . $responseType)
                 ->withHeader('Content-Type', 'application/xml')

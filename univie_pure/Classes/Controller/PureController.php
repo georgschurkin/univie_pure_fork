@@ -20,6 +20,7 @@ use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /*
  * This file is part of the "T3LUH FIS" Extension for TYPO3 CMS.
@@ -158,12 +159,24 @@ class PureController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                         $this->addFlashMessage($view['message'], 'Error', ContextualFeedbackSeverity::ERROR);
                         $this->view->assign('error', $view['message']);
                     } else {
+                        //DebuggerUtility::var_dump($view);
                         $publications = array_fill(0, $view['count'], null);
                         $contributionToJournal = $view["contributionToJournal"] ?? [];
                         $contributionCount = is_array($contributionToJournal) ? count($contributionToJournal) : 0;
                         array_splice($publications, $view['offset'], $contributionCount, $contributionToJournal);
 
-                        $paginator = new ArrayPaginator($publications, $currentPageNumber, $this->settings['pageSize']);
+                        $updatedPublications = [];
+
+                        $pub = $this->researchOutput;
+                        foreach ($publications as $publication) {
+                            if (isset($publication['uuid']) && $publication['uuid']) {
+                                $view = $pub->getSinglePublication($publication['uuid']);
+                                $publication['detail'] = $view;
+                            }
+                            $updatedPublications[] = $publication;
+                        }
+
+                        $paginator = new ArrayPaginator($updatedPublications, $currentPageNumber, $this->settings['pageSize']);
                         $pagination = new NumberedPagination($paginator, $paginationMaxLinks);
 
                         $this->view->assignMultiple([
@@ -287,7 +300,7 @@ class PureController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 // Update page title if available
                 $titleValue = CommonUtilities::getNestedArrayValue($view, 'title.value', '');
                 if (!empty($titleValue)) {
-                    Page::updatePageTitle($titleValue);
+                    //Page::updatePageTitle($titleValue);
                 }
 
                 // Assign data to view

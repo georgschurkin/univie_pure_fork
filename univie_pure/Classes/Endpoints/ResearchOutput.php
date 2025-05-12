@@ -8,6 +8,7 @@ use Univie\UniviePure\Service\WebService;
 use Univie\UniviePure\Utility\CommonUtilities;
 use Univie\UniviePure\Utility\LanguageUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /*
  * This file is part of the "T3LUH FIS" Extension for TYPO3 CMS.

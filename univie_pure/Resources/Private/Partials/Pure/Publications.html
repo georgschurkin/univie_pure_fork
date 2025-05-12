@@ -52,6 +52,33 @@
                             <div><em>{publication.publicationStatus.value}</em></div>
                         </f:if>
                     </f:if>
+                    <f:if condition="{publication.detail}">
+                        <f:if condition="{publication.detail.abstract.text}">
+                            <dt class="col-sm-3"><f:translate key="LLL:EXT:univie_pure/Resources/Private/Language/locallang.xlf:univiepur.publication.abstract" /></dt>
+                            <f:if condition="{lang} == 'de_DE' ">
+                                <f:then>
+                                    <f:if condition="{publication.detail.abstract.text.1.value} != '' ">
+                                        <f:then>
+                                            <dd class="col-sm-9 content-element-margin-small"><f:format.html>{publication.detail.abstract.text.1.value}</f:format.html></dd>
+                                        </f:then>
+                                        <f:else>
+                                            <dd class="col-sm-9 content-element-margin-small"><f:format.html>{publication.detail.abstract.text.0.value}</f:format.html></dd>
+                                        </f:else>
+                                    </f:if>
+                                </f:then>
+                                <f:else>
+                                    <f:if condition="{publication.detail.abstract.text.0.value} != '' ">
+                                        <f:then>
+                                            <dd class="col-sm-9 content-element-margin-small"><f:format.html>{publication.detail.abstract.text.0.value}</f:format.html></dd>
+                                        </f:then>
+                                        <f:else>
+                                            <dd class="col-sm-9 content-element-margin-small"><f:format.html>{publication.detail.abstract.text.1.value}</f:format.html></dd>
+                                        </f:else>
+                                    </f:if>
+                                </f:else>
+                            </f:if>
+                        </f:if>
+                    </f:if>
                     <f:if condition="{settings.singlePid}">
                         <f:link.action action="show" arguments="{uuid : publication.uuid, what2show:'publ'}"
                                    controller="Pure"
