@@ -89,11 +89,14 @@ class WebService
 
     private function fetchApiResponse(string $endpoint, array $params, string $responseType, bool $decoded = true)
     {
+        $params['locale'] = 'en_GB';
+        //DebuggerUtility::var_dump($params);
+
         if (CommonUtilities::getArrayValue($params,'rendering','') == 'BIBTEX'){
             $locale = $params['locale']; // Store locale value
             unset($params['locale']);    // Remove from params array
-
         }
+
         // Build the URI with query parameters from $params
         $uri = (new Uri($this->server . $this->versionPath . $endpoint))->withQuery(http_build_query($params));
 
