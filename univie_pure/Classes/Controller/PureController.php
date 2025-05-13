@@ -91,6 +91,11 @@ class PureController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->settings = $settings;
     }
 
+    public function initializeAction()
+    {
+        $this->cObj = $this->configurationManager->getContentObject();
+    }
+
     /**
      * A helper function to sanitize strings (to help prevent SQL injection).
      */
@@ -184,6 +189,7 @@ class PureController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                             'pagination' => $pagination,
                             'initial_no_results' => $this->settings['initialNoResults'],
                             'paginator' => $paginator,
+                            'data' => $this->cObj->data,
                         ]);
                     }
                     break;
