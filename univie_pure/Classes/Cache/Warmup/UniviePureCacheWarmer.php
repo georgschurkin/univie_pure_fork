@@ -37,7 +37,7 @@ class UniviePureCacheWarmer
 
     public function warmup(CacheWarmupEvent $event): void
     {
-        $logger = $this->logManager->getLogger(__CLASS__);
+        $logger = $this->logManager->getLogger(self::class);
 
         // For CLI output
         echo PHP_EOL . '=== Warming up T3LUH FIS caches ===' . PHP_EOL;
