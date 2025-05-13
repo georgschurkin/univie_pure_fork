@@ -34,16 +34,31 @@ class WebService
     private const CACHE_LIFETIME = 14400; // 4 hours in seconds
     private const MINIMUM_RESPONSE_SIZE = 350;
 
+    private $client;
+    private $requestFactory;
+    private $streamFactory;
+    private $cache;
+    private $flashMessageService;
+    private $logger;
+    private $extensionConfiguration;
+
     public function __construct(
-        private readonly ClientInterface         $client,
-        private readonly RequestFactoryInterface $requestFactory,
-        private readonly StreamFactoryInterface  $streamFactory,
-        private readonly FrontendInterface       $cache,
-        private readonly FlashMessageService     $flashMessageService,
-        private readonly LoggerInterface         $logger,
-        private readonly ExtensionConfiguration  $extensionConfiguration
+        ClientInterface         $client,
+        RequestFactoryInterface $requestFactory,
+        StreamFactoryInterface  $streamFactory,
+        FrontendInterface       $cache,
+        FlashMessageService     $flashMessageService,
+        LoggerInterface         $logger,
+        ExtensionConfiguration  $extensionConfiguration
     )
     {
+        $this->client = $client;
+        $this->requestFactory = $requestFactory;
+        $this->streamFactory = $streamFactory;
+        $this->cache = $cache;
+        $this->flashMessageService = $flashMessageService;
+        $this->logger = $logger;
+        $this->extensionConfiguration = $extensionConfiguration;
         $this->initializeConfiguration();
     }
 
@@ -72,7 +87,7 @@ class WebService
     }
 
 
-    private function fetchApiResponse(string $endpoint, array $params, string $responseType, bool $decoded = true): array|string|\SimpleXMLElement|null
+    private function fetchApiResponse(string $endpoint, array $params, string $responseType, bool $decoded = true)
     {
         if (CommonUtilities::getArrayValue($params,'rendering','') == 'BIBTEX'){
             $locale = $params['locale']; // Store locale value
@@ -125,7 +140,7 @@ class WebService
         string $q,
         string $responseType = "json",
         string $lang = "de_DE"
-    ): array|\SimpleXMLElement|null
+    )
     {
         return $this->fetchApiResponse($endpoint, ['q' => $q, 'locale' => $lang], $responseType);
     }
@@ -138,7 +153,7 @@ class WebService
         bool    $decoded = true,
         ?string  $renderer = null,
         ?string $lang = null
-    ): array|string|\SimpleXMLElement|null
+    )
     {
         $params = [];
 
@@ -181,7 +196,7 @@ class WebService
         return $result === false ? null : $result;
     }
 
-    private function processResponse(string $content, string $responseType, bool $decoded): array|string|null
+    private function processResponse(string $content, string $responseType, bool $decoded)
     {
         if (empty($content)) {
             return null;
@@ -215,7 +230,7 @@ class WebService
         return $this->processResponse($response ?? '', 'json', true);
     }
 
-    public function getXml(string $endpoint, string $data): array|\SimpleXMLElement|null
+    public function getXml(string $endpoint, string $data)
     {
         $response = $this->executeRequest($endpoint, $data, 'xml');
         return $this->processResponse($response ?? '', 'xml', true);

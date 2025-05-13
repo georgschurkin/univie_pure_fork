@@ -39,13 +39,13 @@ class PureController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     protected $settings = [];
 
-    private readonly ResearchOutput $researchOutput;
-    private readonly Projects $projects;
-    private readonly Equipments $equipments;
-    private readonly DataSets $dataSets;
+    private ResearchOutput $researchOutput;
+    private Projects $projects;
+    private Equipments $equipments;
+    private DataSets $dataSets;
     protected string $locale;
     protected string $localeShort;
-    private readonly FlashMessageService $flashMessageService;
+    private FlashMessageService $flashMessageService;
 
     protected function getLocale(): string
     {

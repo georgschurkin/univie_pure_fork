@@ -17,7 +17,7 @@ use Univie\UniviePure\Utility\LanguageUtility;
 class Persons extends Endpoints
 {
 
-    private readonly WebService $webservice;
+    private WebService $webservice;
 
     public function __construct(WebService $webservice)
     {

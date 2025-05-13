@@ -19,7 +19,7 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 class ResearchOutput extends Endpoints
 {
-    private readonly WebService $webservice;
+    private WebService $webservice;
 
     public function __construct(WebService $webservice)
     {
