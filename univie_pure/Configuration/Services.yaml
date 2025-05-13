@@ -27,11 +27,3 @@ services:
       - name: event.listener
         identifier: 'univie-pure-cache-warmer'
         event: TYPO3\CMS\Core\Cache\Event\CacheWarmupEvent
-
-  Psr\Http\Client\ClientInterface:
-    class: GuzzleHttp\Client
-    arguments:
-      $config:
-        verify: false # 🔴 Disable SSL verification (for debugging)
-
-
