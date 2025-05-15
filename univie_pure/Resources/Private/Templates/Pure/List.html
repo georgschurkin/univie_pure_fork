@@ -3,9 +3,15 @@
 <f:section name="main">
 	<f:flashMessages />
 
-	<script>$(function(){
-		$(".rendering a").attr("target","_blank");
-		$(".c-link--inline").attr("target","_self");
+	<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		document.querySelectorAll(".rendering a").forEach(function (el) {
+			el.setAttribute("target", "_blank");
+		});
+
+		document.querySelectorAll(".c-link--inline").forEach(function (el) {
+			el.setAttribute("target", "_self");
+		});
 	});
 	</script>
 	<div class="tx_univiepure" >
@@ -38,7 +44,7 @@
 					<f:then>
 							<f:if condition="{paginator.paginatedItems}">
 								<f:then>
-									<f:render partial="Pure/Publications" arguments="{pagination:pagination, paginator:paginator, publications:paginator.paginatedItems}"/>
+									<f:render partial="Pure/Publications" arguments="{pagination:pagination, paginator:paginator, publications:paginator.paginatedItems, data: data}"/>
 								</f:then>
 							</f:if>
 						</f:then>

@@ -11,10 +11,10 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = array (
-  'title' => 'T3LUH FIS',
+  'title' => 'Fork from univie_pure extension',
   'description' => 'This extension allows you to seamlessly integrate academic content from the Elsevier Pure Research Information System (API v524) into your TYPO3 website, displaying publications, projects, datasets, and equipment details. Based on the Vienna Pure extension, our implementation has been specifically optimized to meet the requirements of Leibniz University Hannover, while also being designed for global use and continuous improvement.',
   'category' => 'plugin',
-  'version' => '12.1.524',
+  'version' => '11.0.0',
   'state' => 'beta',
   'uploadfolder' => false,
   'clearcacheonload' => false,
@@ -25,8 +25,8 @@ $EM_CONF[$_EXTKEY] = array (
   array (
     'depends' => 
     array (
-      'php' => '8.2.0-8.3.99',
-      'typo3' => '12.0.0-12.99.99',
+      'php' => '7.4.0-8.3.99',
+      'typo3' => '11.0.0-11.99.99',
       'numbered_pagination' => '2.0.1-2.99.99',
     ),
     'conflicts' => 

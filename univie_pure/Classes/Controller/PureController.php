@@ -39,13 +39,13 @@ class PureController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     protected $settings = [];
 
-    private readonly ResearchOutput $researchOutput;
-    private readonly Projects $projects;
-    private readonly Equipments $equipments;
-    private readonly DataSets $dataSets;
+    private ResearchOutput $researchOutput;
+    private Projects $projects;
+    private Equipments $equipments;
+    private DataSets $dataSets;
     protected string $locale;
     protected string $localeShort;
-    private readonly FlashMessageService $flashMessageService;
+    private FlashMessageService $flashMessageService;
 
     protected function getLocale(): string
     {
@@ -89,6 +89,11 @@ class PureController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $settings['pageSize'] = 20;
         }
         $this->settings = $settings;
+    }
+
+    public function initializeAction()
+    {
+        $this->cObj = $this->configurationManager->getContentObject();
     }
 
     /**
@@ -184,6 +189,7 @@ class PureController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                             'pagination' => $pagination,
                             'initial_no_results' => $this->settings['initialNoResults'],
                             'paginator' => $paginator,
+                            'data' => $this->cObj->data,
                         ]);
                     }
                     break;

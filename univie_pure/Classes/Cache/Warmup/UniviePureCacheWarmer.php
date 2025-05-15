@@ -13,11 +13,19 @@ use Univie\UniviePure\Utility\LanguageUtility;
 class UniviePureCacheWarmer
 {
     private array $supportedLanguages = ['de_DE', 'en_GB'];
+    private $classificationScheme;
+    private $cache;
+    private $logManager;
+
     public function __construct(
-        private readonly ClassificationScheme $classificationScheme,
-        private readonly FrontendInterface $cache,
-        private readonly LogManager $logManager
-    ) {}
+        ClassificationScheme $classificationScheme,
+        FrontendInterface $cache,
+        LogManager $logManager
+    ) {
+        $this->classificationScheme = $classificationScheme;
+        $this->cache = $cache;
+        $this->logManager = $logManager;
+    }
 
     public function __invoke(CacheWarmupEvent $event): void
     {
@@ -29,7 +37,7 @@ class UniviePureCacheWarmer
 
     public function warmup(CacheWarmupEvent $event): void
     {
-        $logger = $this->logManager->getLogger(__CLASS__);
+        $logger = $this->logManager->getLogger(self::class);
 
         // For CLI output
         echo PHP_EOL . '=== Warming up T3LUH FIS caches ===' . PHP_EOL;

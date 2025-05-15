@@ -18,7 +18,7 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 class Projects extends Endpoints
 {
-    private readonly WebService $webservice;
+    private WebService $webservice;
 
     public function __construct(WebService $webservice)
     {

@@ -51,21 +51,6 @@
                                         <numIndex index="1">PROJECTS</numIndex>
                                     </numIndex>
 
-                                    <numIndex index="6" type="array">
-                                        <numIndex index="0">
-                                            LLL:EXT:univie_pure/Resources/Private/Language/locallang_tca.xml:flexform.what_to_display.equipments
-                                        </numIndex>
-                                        <numIndex index="1">EQUIPMENTS</numIndex>
-                                    </numIndex>
-
-                                    <numIndex index="7" type="array">
-                                        <numIndex index="0">
-                                            LLL:EXT:univie_pure/Resources/Private/Language/locallang_tca.xml:flexform.what_to_display.data_sets
-                                        </numIndex>
-                                        <numIndex index="1">DATASETS</numIndex>
-                                    </numIndex>
-
-
                                 </items>
                                 <maxitems>1</maxitems>
                                 <multiple>0</multiple>

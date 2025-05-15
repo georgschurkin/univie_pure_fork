@@ -18,7 +18,7 @@ use Univie\UniviePure\Utility\LanguageUtility;
 class Equipments extends Endpoints
 {
 
-    private readonly WebService $webservice;
+    private WebService $webservice;
 
     public function __construct(WebService $webservice)
     {

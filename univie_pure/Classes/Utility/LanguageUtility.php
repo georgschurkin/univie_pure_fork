@@ -6,6 +6,7 @@ namespace Univie\UniviePure\Utility;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /*
  * This file is part of the "T3LUH FIS" Extension for TYPO3 CMS.
@@ -29,7 +30,7 @@ class LanguageUtility
         if (($GLOBALS['TYPO3_REQUEST'] ?? null) !== null) {
             $language = $GLOBALS['TYPO3_REQUEST']->getAttribute('language');
             if ($language instanceof \TYPO3\CMS\Core\Site\Entity\SiteLanguage) {
-                $languageCode = $language->getLocale()->getLanguageCode();
+                $languageCode = $language->getTwoLetterIsoCode();
                 $lang = $languageCode === 'de' ? 'de_DE' : 'en_GB';
             }
         }
@@ -66,11 +67,17 @@ class LanguageUtility
 
         if ($backendUser !== null && isset($backendUser->uc['lang'])) {
             // Map language code to locale
-            $locale = match ($backendUser->uc['lang']) {
-                'de' => 'de_DE',
-                'en' => 'en_GB',
-                default => 'de_DE'
-            };
+            switch ($backendUser->uc['lang']) {
+                case 'de':
+                    $locale = 'de_DE';
+                    break;
+                case 'en':
+                    $locale = 'en_GB';
+                    break;
+                default:
+                    $locale = 'de_DE';
+                    break;
+            }
         }
 
 
