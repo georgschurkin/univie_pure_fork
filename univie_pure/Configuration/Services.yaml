@@ -1,0 +1,29 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Univie\UniviePure\:
+    resource: '../Classes/*'
+
+  Univie\UniviePure\Service\WebService:
+    public: true
+    arguments:
+      $cache: '@cache.univie_pure'
+
+  cache.univie_pure:
+    class: TYPO3\CMS\Core\Cache\Frontend\FrontendInterface
+    factory: ['@TYPO3\CMS\Core\Cache\CacheManager', 'getCache']
+    arguments: ['univie_pure']
+
+  Univie\UniviePure\Cache\Warmup\UniviePureCacheWarmer:
+    public: true
+    arguments:
+      $classificationScheme: '@Univie\UniviePure\Utility\ClassificationScheme'
+      $cache: '@cache.univie_pure'
+      $logManager: '@TYPO3\CMS\Core\Log\LogManager'
+    tags:
+      - name: event.listener
+        identifier: 'univie-pure-cache-warmer'
+        event: TYPO3\CMS\Core\Cache\Event\CacheWarmupEvent

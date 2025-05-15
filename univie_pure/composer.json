@@ -1,0 +1,59 @@
+{
+  "name": "univie/univie_pure",
+  "description": "This extension allows you to seamlessly integrate academic content from the Elsevier Pure Research Information System (API v524) into your TYPO3 website, displaying publications, projects, datasets, and equipment details. Based on the Vienna Pure extension, our implementation has been specifically optimized to meet the requirements of Leibniz University Hannover, while also being designed for global use and continuous improvement.",
+  "type": "typo3-cms-extension",
+  "version": "12.1.524",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "TYPO3-Team LUIS LUH",
+      "email": "typo3@luis.uni-hannover.de"
+    }
+  ],
+  "require": {
+    "php": ">=8.2.0",
+    "typo3/cms-core": "^12.4",
+    "georgringer/numbered-pagination": ">=2.0.1",
+    "goaop/framework": "^1.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Univie\\UniviePure\\": "Classes/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Univie\\UniviePure\\Tests\\": "Tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10",
+    "typo3/coding-standards": "^0.7.1",
+    "typo3/testing-framework": "^8.2",
+    "php-mock/php-mock-phpunit": "^2.10",
+    "codeception/aspect-mock": "^0.5.1",
+    "phpunit/php-code-coverage": "^10.1",
+    "typo3/cms-fluid-styled-content": "^12.4",
+    "typo3/cms-frontend": "^12.4",
+    "typo3/cms-install": "^12.4"
+
+  },
+  "config": {
+    "allow-plugins": {
+      "typo3/class-alias-loader": true,
+      "typo3/cms-composer-installers": true
+    },
+    "vendor-dir": ".Build/vendor",
+    "bin-dir": ".Build/bin"
+  },
+  "scripts": {
+    "test": "phpunit"
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "univie_pure",
+      "web-dir": ".Build/public"
+    }
+  }
+
+}
